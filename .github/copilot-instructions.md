@@ -14,7 +14,7 @@ CodePusher is a Chrome extension that pushes accepted solutions from coding plat
 - Only the background service worker may access the GitHub token.
 - Store the token only in `chrome.storage.local`. Never hardcode or log it.
 - Never pass or expose the token to content scripts, page scripts, the DOM, or messages accessible to content scripts.
-- Restrict `host_permissions` to the five supported coding sites and `https://api.github.com/*`.
+- Restrict `host_permissions` to the supported coding sites (currently LeetCode and Codeforces) and `https://api.github.com/*`.
 
 ## Safe content handling
 
