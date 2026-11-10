@@ -2,6 +2,12 @@
 
 CodePusher is a Chrome extension that saves accepted LeetCode and Codeforces solutions to a GitHub repository.
 
+![Manifest V3](https://img.shields.io/badge/Chrome-Manifest%20V3-blue) ![License: MIT](https://img.shields.io/badge/license-MIT-green) ![No backend](https://img.shields.io/badge/backend-none-lightgrey)
+
+<!-- ![Demo](docs/demo.gif)  ← add a 10-second GIF: submit a solution → popup shows "pushed" → the file appears in GitHub. This one image is the most valuable addition. -->
+
+**See it in action:** the [`dsa-solutions`](https://github.com/manav15dhupar-ux/dsa-solutions) repository (including its generated index) is produced entirely by this extension.
+
 ## Why I built it
 
 I do not trust third-party code pushers with a GitHub token, so I built one I can audit.
@@ -32,6 +38,10 @@ Popup --sync request--> Site content script
                                                          |
                                                          +--> GitHub APIs
 ```
+
+## Privacy
+
+Nothing leaves your browser except requests to LeetCode, Codeforces and `api.github.com`. There is no server, analytics or telemetry. The only secret stored is your GitHub token, in `chrome.storage.local`, readable only by the extension's own pages and service worker.
 
 ## Security design
 
@@ -74,7 +84,8 @@ Generated problem `README.md` files include statements copied from the platforms
 3. Clone this repository:
 
    ```sh
-   git clone https://github.com/manav15dhupar-ux/code-pusher.git
+   git clone https://github.com/manav15dhupar-ux/codepusher.git
+   cd codepusher
    ```
 
 4. In Chrome, open `chrome://extensions`, enable **Developer mode**, choose **Load unpacked**, and select the cloned project folder.
@@ -110,6 +121,11 @@ Generated problem `README.md` files include statements copied from the platforms
 |-- SECURITY.md                      Vulnerability reporting and scope
 `-- sync-runner.js                   Shared sequential historical sync runner
 ```
+
+## Development notes
+
+- Plain JavaScript, no build step: edit a file, then click **Reload** on `chrome://extensions`.
+- The riskiest code is the HTML-to-Markdown converter (`content-markdown.js`) because it handles untrusted page content. A natural next step is unit tests for it with Node's built-in test runner and `jsdom`, covering links, `javascript:` URLs, nested lists and raw `<script>` input.
 
 ## Roadmap
 
